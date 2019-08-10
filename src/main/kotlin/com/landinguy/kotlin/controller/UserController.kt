@@ -3,6 +3,7 @@ package com.landinguy.kotlin.controller
 import com.landinguy.kotlin.entity.User
 import com.landinguy.kotlin.service.UserService
 import com.landinguy.kotlin.util.Result
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +22,8 @@ import javax.validation.Valid
 @RequestMapping("user")
 class UserController {
 
+    val log: Logger = LoggerFactory.getLogger(this.javaClass)
+
     @Resource
     lateinit var userService: UserService
 
@@ -29,7 +32,7 @@ class UserController {
         var result = Result()
         if (bindingResult.hasErrors()) {
             val errMsg = bindingResult.allErrors.stream().map { it.defaultMessage }.collect(Collectors.joining(","))
-            println("errMsg: $errMsg")
+            log.info("errMsg: $errMsg")
             return Result(-1, errMsg)
         }
 
@@ -37,6 +40,7 @@ class UserController {
             userService.save(user)
         } catch (e: Exception) {
             result = Result(-1, "添加用户失败", Unit)
+            log.error("添加用户失败,$e")
         }
         return result
     }
