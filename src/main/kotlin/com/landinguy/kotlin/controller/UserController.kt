@@ -1,15 +1,14 @@
 package com.landinguy.kotlin.controller
 
+import com.alibaba.fastjson.JSON
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.landinguy.kotlin.entity.User
 import com.landinguy.kotlin.service.UserService
 import com.landinguy.kotlin.util.Result
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.stream.Collectors
 import javax.annotation.Resource
 import javax.validation.Valid
@@ -52,6 +51,23 @@ class UserController {
             val list = userService.findAll()
             result.data = list
         } catch (e: Exception) {
+            result = Result(-1, "查询用户失败", Unit)
+        }
+        return result
+    }
+
+    @RequestMapping("pageSelect")
+    fun pageSelect(@RequestParam("pageNo", defaultValue = "1") pageNo: Long, @RequestParam("pageSize", defaultValue = "10") pageSize: Long): Result {
+        log.info("pageSize#$pageSize,pageNo#$pageNo")
+        var result = Result()
+        try {
+            val page = Page<User>(pageNo, pageSize)
+
+            val pageVo = userService.selectPageVo(page)
+            log.info("pageVo#${JSON.toJSONString(pageVo)}")
+            result.data = pageVo.records
+        } catch (e: Exception) {
+            log.error("查询用户失败，$e")
             result = Result(-1, "查询用户失败", Unit)
         }
         return result

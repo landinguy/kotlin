@@ -1,5 +1,7 @@
 package com.landinguy.kotlin.service
 
+import com.baomidou.mybatisplus.core.metadata.IPage
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.landinguy.kotlin.entity.User
 import com.landinguy.kotlin.mapper.UserMapper
 import com.landinguy.kotlin.repository.UserRepository
@@ -23,5 +25,7 @@ class UserService {
     fun findAll(): List<User> = userRepository.findAll()
 
     fun find(): List<User> = userMapper.selectList(null)
+
+    fun selectPageVo(page: Page<User>): IPage<User> = userMapper.selectPageVo(page)
 
 }
