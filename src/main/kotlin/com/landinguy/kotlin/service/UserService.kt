@@ -23,6 +23,7 @@ class UserService {
     fun save(user: User) = userRepository.save(user)
 
     fun findAll(): List<User> = userRepository.findAll()
+//            userRepository.findAll()
 
     fun find(): List<User> = userMapper.selectList(null)
 

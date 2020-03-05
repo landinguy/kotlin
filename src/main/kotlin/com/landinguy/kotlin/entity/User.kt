@@ -1,6 +1,5 @@
 package com.landinguy.kotlin.entity
 
-import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 import javax.validation.constraints.NotEmpty
 
@@ -10,12 +9,11 @@ import javax.validation.constraints.NotEmpty
  */
 @Entity
 //@DynamicUpdate
-@Table(indexes = [Index(name = "", unique = false, columnList = "username")])
+@Table(indexes = [Index(name = "user_username", columnList = "username")])
 class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = -1
+    var id: Long? = null
 
     @NotEmpty(message = "用户名不能为空")
     @Column(unique = false, nullable = false)
@@ -28,5 +26,4 @@ class User {
     override fun toString(): String {
         return "User(id=$id, username='$username', password='$password')"
     }
-
 }

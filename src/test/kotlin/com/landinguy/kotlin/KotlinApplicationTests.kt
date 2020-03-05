@@ -68,11 +68,6 @@ class KotlinApplicationTests {
 //        f1()
 //        f2()
 
-        val user = User()
-        user.id=3
-        user.username = "lucy3"
-        userService.save(user)
-
     }
 
     fun f1() {
