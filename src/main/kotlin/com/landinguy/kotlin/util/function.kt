@@ -1,3 +1,3 @@
 package com.landinguy.kotlin.util
 
-typealias BusinessHandle<E> = (E) -> Unit
+typealias Handle<E> = (E) -> Unit

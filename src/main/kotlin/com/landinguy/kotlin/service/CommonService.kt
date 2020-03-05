@@ -1,6 +1,6 @@
 package com.landinguy.kotlin.service
 
-import com.landinguy.kotlin.util.BusinessHandle
+import com.landinguy.kotlin.util.Handle
 import com.landinguy.kotlin.util.Result
 import com.landinguy.kotlin.util.Validator
 import org.slf4j.Logger
@@ -21,7 +21,7 @@ class CommonService {
         result.code = code ?: -1
     }
 
-    fun process(bindingResult: BindingResult? = null, businessHandle: BusinessHandle<Result>, errHandle: BusinessHandle<Exception>): Result {
+    fun process(bindingResult: BindingResult? = null, businessHandle: Handle<Result>, errHandle: Handle<Exception>): Result {
         val result = Result()
 
         //参数校验
