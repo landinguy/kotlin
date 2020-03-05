@@ -1,5 +1,6 @@
 package com.landinguy.kotlin.entity
 
+import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
 import javax.validation.constraints.NotEmpty
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotEmpty
  * @date 2019/8/7
  */
 @Entity
+//@DynamicUpdate
 @Table(indexes = [Index(name = "", unique = false, columnList = "username")])
 class User {
 
