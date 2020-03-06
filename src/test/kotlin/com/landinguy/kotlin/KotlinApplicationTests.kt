@@ -67,6 +67,12 @@ class KotlinApplicationTests {
 //        f1()
 //        f2()
 
+        /*** 匿名函数作为接收者类型 ***/
+//        val add = fun Int.(other: Int): Int = this + other
+//        println("######${2.add(3)}")
+
+        /*** inline内联函数可以提高运行效率 ***/
+
 
     }
 

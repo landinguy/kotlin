@@ -21,7 +21,7 @@ class CommonService {
         result.code = code ?: -1
     }
 
-    fun process(businessHandle: Handle<Result>, errHandle: Handle<Exception>, bindingResult: BindingResult? = null): Result {
+    final inline fun process(businessHandle: Handle<Result>, errHandle: Handle<Exception>, bindingResult: BindingResult? = null): Result {
         val result = Result()
 
         //参数校验
