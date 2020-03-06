@@ -21,14 +21,11 @@ class CommonService {
         result.code = code ?: -1
     }
 
-    fun process(bindingResult: BindingResult? = null, businessHandle: Handle<Result>, errHandle: Handle<Exception>): Result {
+    fun process(businessHandle: Handle<Result>, errHandle: Handle<Exception>, bindingResult: BindingResult? = null): Result {
         val result = Result()
 
         //参数校验
-        if (bindingResult != null) {
-            val validate = validator.validate(bindingResult)
-            if (validate != null) return validate
-        }
+        bindingResult?.let { validator.validate(it)?.let { return it } }
 
         try {
             businessHandle(result)

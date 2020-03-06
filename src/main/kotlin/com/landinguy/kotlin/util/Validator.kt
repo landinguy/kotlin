@@ -13,7 +13,7 @@ class Validator {
     fun validate(bindingResult: BindingResult): Result? =
             if (bindingResult.hasErrors()) {
                 val errMsg = bindingResult.allErrors.stream().map { it.defaultMessage }.collect(Collectors.joining(","))
-                log.warn("参数校验失败,errMsg#{}", errMsg)
+                log.warn("参数校验失败,errMsg#$errMsg")
                 Result(-1, "参数校验未通过：$errMsg")
             } else null
 

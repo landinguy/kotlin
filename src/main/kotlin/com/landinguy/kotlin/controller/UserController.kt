@@ -1,6 +1,5 @@
 package com.landinguy.kotlin.controller
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.landinguy.kotlin.entity.User
 import com.landinguy.kotlin.service.CommonService
 import com.landinguy.kotlin.service.UserService
@@ -30,23 +29,18 @@ class UserController {
 
     @PostMapping("add")
     fun save(@Valid @RequestBody user: User, bindingResult: BindingResult): Result {
-        log.info("添加用户,user#{}", user)
-        return commonService.process(bindingResult, { userService.save(user) }, { log.error("添加用户失败", it) })
+        log.info("添加用户,user#$user")
+        return commonService.process({ userService.save(user) }, { log.error("添加用户失败", it) }, bindingResult)
     }
 
     @GetMapping("findAll")
-    fun select(): Result = commonService.process(null, { it.data = userService.findAll() }, { log.error("查询用户失败", it) })
+    fun select(): Result = commonService.process({ it.data = userService.findAll() }, { log.error("查询用户失败", it) })
 
 
     @GetMapping("pageSelect")
     fun pageSelect(@RequestParam("pageNo", defaultValue = "1") pageNo: Long, @RequestParam("pageSize", defaultValue = "10") pageSize: Long): Result {
         log.info("pageNo#$pageNo,pageSize#$pageSize")
-        return commonService.process(null, {
-            val page = Page<User>(pageNo, pageSize)
-            val pageVo = userService.selectPageVo(page)
-//            log.info("pageVo#${JSON.toJSONString(pageVo)}")
-            it.data = mapOf<String, Any>("total" to pageVo.total, "list" to pageVo.records)
-        }, { log.error("查询用户失败", it) })
+        return commonService.process({ it.data = userService.selectByPage(pageNo, pageSize) }, { log.error("查询用户失败", it) })
     }
 
 }

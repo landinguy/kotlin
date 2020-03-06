@@ -1,8 +1,7 @@
 package com.landinguy.kotlin
 
-import com.landinguy.kotlin.entity.User
 import com.landinguy.kotlin.service.UserService
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -67,6 +66,7 @@ class KotlinApplicationTests {
         /*** 协程用法 ***/
 //        f1()
 //        f2()
+
 
     }
 

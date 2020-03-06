@@ -23,10 +23,11 @@ class UserService {
     fun save(user: User) = userRepository.save(user)
 
     fun findAll(): List<User> = userRepository.findAll()
-//            userRepository.findAll()
 
-    fun find(): List<User> = userMapper.selectList(null)
-
-    fun selectPageVo(page: Page<User>): IPage<User> = userMapper.selectPageVo(page)
+    fun selectByPage(pageNo: Long, pageSize: Long): Any {
+        val page = Page<User>(pageNo, pageSize)
+        val pageVo = userMapper.selectPageVo(page)
+        return mapOf<String, Any>("total" to pageVo.total, "list" to pageVo.records)
+    }
 
 }
